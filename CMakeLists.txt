@@ -10,6 +10,15 @@ include(CMakeOptions.cmake)
 # PROJECT
 ##################################################################################################################
 
+set(imgui_VERSION 1.89.6)
+
+project(imgui
+  VERSION ${imgui_VERSION}
+  LANGUAGES CXX
+  DESCRIPTION "Build ImGui as shared or static library."
+  HOMEPAGE_URL "https://github.com/ocornut/imgui"
+)
+
 set(CMAKE_VERBOSE_MAKEFILE TRUE CACHE BOOL "" FORCE)
 
 # Note that for multi-config generators, we don't need to set CMAKE_BUILD_TYPE.
@@ -86,20 +95,6 @@ if(IMGUI_WITH_BACKEND)
     list(APPEND IMGUI_INTERFACE_LIBS dxgi)
     # list(APPEND IMGUI_INTERFACE_LIBS d3dcompiler)
   endif()
-
-  if(IMGUI_BACKEND_GLFW_OPENGL3)
-    message(STATUS "[ImGui] Including backend api: [OpenGL with glfw]")
-     list(APPEND PUBLIC_H_FILES ${BACKENDS_DIR}/imgui_impl_glfw.h)
-    list(APPEND PUBLIC_CXX_FILES ${BACKENDS_DIR}/imgui_impl_glfw.cpp)
-
-    list(APPEND PUBLIC_H_FILES ${BACKENDS_DIR}/imgui_impl_opengl3_loader.h)
-    list(APPEND PUBLIC_H_FILES ${BACKENDS_DIR}/imgui_impl_opengl3.h)
-    list(APPEND PUBLIC_CXX_FILES ${BACKENDS_DIR}/imgui_impl_opengl3.cpp)
-
-    list(APPEND IMGUI_INTERFACE_LIBS glfw3)
-    list(APPEND IMGUI_INTERFACE_LIBS opengl32)
-  endif()
-
 endif()
 
 set(PROJECT_FILES
